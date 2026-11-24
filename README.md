@@ -1,9 +1,37 @@
 # Frappe CRM on AWS ECS Fargate (Blue-Green)
 
 ```
-git push -> GitHub Actions -> build image -> ECR -> CodeDeploy blue/green -> ECS Fargate behind ALB
-                                                                              |
-                                                                       CloudWatch logs + alarm
+## Architecture
+
+```text
+              GitHub Repository
+                      |
+               GitHub Actions
+                      |
+                Docker Build
+                      |
+                 Amazon ECR
+                      |
+                AWS CodeDeploy
+                      |
+                 ECS Fargate
+                      |
+          +-----------+-----------+
+          |                       |
+      Blue Task               Green Task
+          |                       |
+      Blue TG                 Green TG
+          |                       |
+          +-----------+-----------+
+                      |
+          Application Load Balancer
+                      |
+                    Users
+
+    CloudWatch --> Logs, Metrics and Alarms
+    CodeDeploy --> Automatic Rollback
+    Terraform  --> Infrastructure Provisioning
+
 ```
 
 ## Requirements covered
