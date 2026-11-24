@@ -1,6 +1,5 @@
 # Frappe CRM on AWS ECS Fargate (Blue-Green)
 
-```
 ## Architecture
 
 ```text
